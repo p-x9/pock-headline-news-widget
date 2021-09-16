@@ -6,9 +6,24 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		422F66CF26F2049400AEFAE0 /* HeadLineNewsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66CE26F2049400AEFAE0 /* HeadLineNewsWidget.swift */; };
+		422F66E126F31DAA00AEFAE0 /* Pods_pock_headline_news.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */; };
+		422F66E926F31F2900AEFAE0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66E826F31F2900AEFAE0 /* Item.swift */; };
+		422F66EB26F31F6800AEFAE0 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66EA26F31F6800AEFAE0 /* RSSParser.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.release.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.release.xcconfig"; sourceTree = "<group>"; };
 		422F66C426F2020200AEFAE0 /* pock_headline_news.pock */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pock_headline_news.pock; sourceTree = BUILT_PRODUCTS_DIR; };
 		422F66C726F2020200AEFAE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		422F66CD26F2049400AEFAE0 /* pock_headline_news-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pock_headline_news-Bridging-Header.h"; sourceTree = "<group>"; };
+		422F66CE26F2049400AEFAE0 /* HeadLineNewsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadLineNewsWidget.swift; sourceTree = "<group>"; };
+		422F66E426F31E7F00AEFAE0 /* FeedKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FeedKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		422F66E826F31F2900AEFAE0 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		422F66EA26F31F6800AEFAE0 /* RSSParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
+		491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pock_headline_news.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.debug.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -16,17 +31,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422F66E126F31DAA00AEFAE0 /* Pods_pock_headline_news.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C8CC030FDFC5B07BF87C570 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */,
+				1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		422F66BB26F2020200AEFAE0 = {
 			isa = PBXGroup;
 			children = (
 				422F66C626F2020200AEFAE0 /* pock_headline_news */,
 				422F66C526F2020200AEFAE0 /* Products */,
+				0C8CC030FDFC5B07BF87C570 /* Pods */,
+				6D840EE9C41293C71BFA9DAE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -42,8 +69,21 @@
 			isa = PBXGroup;
 			children = (
 				422F66C726F2020200AEFAE0 /* Info.plist */,
+				422F66CE26F2049400AEFAE0 /* HeadLineNewsWidget.swift */,
+				422F66CD26F2049400AEFAE0 /* pock_headline_news-Bridging-Header.h */,
+				422F66E826F31F2900AEFAE0 /* Item.swift */,
+				422F66EA26F31F6800AEFAE0 /* RSSParser.swift */,
 			);
 			path = pock_headline_news;
+			sourceTree = "<group>";
+		};
+		6D840EE9C41293C71BFA9DAE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				422F66E426F31E7F00AEFAE0 /* FeedKit.framework */,
+				491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -53,9 +93,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 422F66CA26F2020200AEFAE0 /* Build configuration list for PBXNativeTarget "pock_headline_news" */;
 			buildPhases = (
+				11A13C717E85783C21369828 /* [CP] Check Pods Manifest.lock */,
 				422F66C026F2020200AEFAE0 /* Sources */,
 				422F66C126F2020200AEFAE0 /* Frameworks */,
 				422F66C226F2020200AEFAE0 /* Resources */,
+				422F66D226F240E300AEFAE0 /* Debug Script */,
 			);
 			buildRules = (
 			);
@@ -76,6 +118,7 @@
 				TargetAttributes = {
 					422F66C326F2020200AEFAE0 = {
 						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -107,11 +150,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11A13C717E85783C21369828 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pock_headline_news-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		422F66D226F240E300AEFAE0 /* Debug Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Debug Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n  echo \"Copying ${PRODUCT_NAME}.pock to destination folder\"\n  cp -r $TARGET_BUILD_DIR/$PRODUCT_NAME.pock ~/Library/Application\\ Support/Pock/Widgets/\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		422F66C026F2020200AEFAE0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422F66EB26F31F6800AEFAE0 /* RSSParser.swift in Sources */,
+				422F66E926F31F2900AEFAE0 /* Item.swift in Sources */,
+				422F66CF26F2049400AEFAE0 /* HeadLineNewsWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,30 +320,49 @@
 		};
 		422F66CB26F2020200AEFAE0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = WLCQDVKTS9;
 				INFOPLIST_FILE = pock_headline_news/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.p-x9.pock-headline-news";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "pock_headline_news/pock_headline_news-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = pock;
 			};
 			name = Debug;
 		};
 		422F66CC26F2020200AEFAE0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = WLCQDVKTS9;
 				INFOPLIST_FILE = pock_headline_news/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.p-x9.pock-headline-news";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "pock_headline_news/pock_headline_news-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = pock;
 			};
 			name = Release;
