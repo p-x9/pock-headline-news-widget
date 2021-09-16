@@ -30,6 +30,7 @@ class HeadLineNewsWidget:NSObject, PKWidget{
         label.cell?.isScrollable = true
         label.cell?.wraps = false
         label.wantsLayer = true
+        label.textColor = #colorLiteral(red: 1, green: 0.5328089595, blue: 0.4345889091, alpha: 1)
         
         return label
     }()
@@ -39,6 +40,16 @@ class HeadLineNewsWidget:NSObject, PKWidget{
         self.rssParser.items
     }
     var currentIndex = 0
+    
+    public var isHighlighted = false {
+        didSet {
+            if isHighlighted {
+                self.view.layer?.backgroundColor = NSColor.black.highlight(withLevel: 0.25)?.cgColor
+            } else {
+                self.view.layer?.backgroundColor = NSColor.black.cgColor
+            }
+        }
+    }
     
     override required init() {
         let feedURL = URL(string: "https://news.yahoo.co.jp/rss/topics/top-picks.xml")!
@@ -113,5 +124,27 @@ class HeadLineNewsWidget:NSObject, PKWidget{
 extension HeadLineNewsWidget:CAAnimationDelegate{
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         animation()
+    }
+}
+
+extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
+    private func shouldHighlight(for location: NSPoint, in view: NSView) -> Bool {
+        view.frame.contains(location)
+    }
+    
+    func screenEdgeController(_ controller: PKScreenEdgeController, mouseEnteredAtLocation location: NSPoint, in view: NSView) {
+        self.isHighlighted = shouldHighlight(for: location, in: view)
+    }
+    
+    func screenEdgeController(_ controller: PKScreenEdgeController, mouseMovedAtLocation location: NSPoint, in view: NSView) {
+        self.isHighlighted = shouldHighlight(for: location, in: view)
+    }
+    
+    func screenEdgeController(_ controller: PKScreenEdgeController, mouseClickAtLocation location: NSPoint, in view: NSView) {
+        self.animation()
+    }
+    
+    func screenEdgeController(_ controller: PKScreenEdgeController, mouseExitedAtLocation location: NSPoint, in view: NSView) {
+        self.isHighlighted = false
     }
 }
