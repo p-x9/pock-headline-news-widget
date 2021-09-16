@@ -98,6 +98,7 @@
 				422F66C026F2020200AEFAE0 /* Sources */,
 				422F66C126F2020200AEFAE0 /* Frameworks */,
 				422F66C226F2020200AEFAE0 /* Resources */,
+				422F66EE26F3A27400AEFAE0 /* Run SwiftLint */,
 				422F66D226F240E300AEFAE0 /* Debug Script */,
 			);
 			buildRules = (
@@ -191,6 +192,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n  echo \"Copying ${PRODUCT_NAME}.pock to destination folder\"\n  cp -r $TARGET_BUILD_DIR/$PRODUCT_NAME.pock ~/Library/Application\\ Support/Pock/Widgets/\nfi\n\n";
+		};
+		422F66EE26F3A27400AEFAE0 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --fix\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

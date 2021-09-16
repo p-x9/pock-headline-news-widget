@@ -9,8 +9,8 @@
 import Foundation
 
 struct Item {
-    var title:String
-    var pubDate:String
-    var link:String
-    var description:String
+    var title: String
+    var pubDate: String
+    var link: String
+    var description: String
 }

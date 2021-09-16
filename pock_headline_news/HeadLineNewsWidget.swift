@@ -10,14 +10,14 @@ import PockKit
 import Cocoa
 import SnapKit
 
-class HeadLineNewsWidget:NSObject, PKWidget{
+class HeadLineNewsWidget: NSObject, PKWidget {
     var identifier: NSTouchBarItem.Identifier = NSTouchBarItem.Identifier(rawValue: "\(HeadLineNewsWidget.self)")
-    
+
     var customizationLabel: String = "HeadLineNews"
-    
-    var view: NSView = NSView(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
-    
-    let newsLabel:NSTextField = {
+
+    var view = NSView(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
+
+    let newsLabel: NSTextField = {
         let label = NSTextField()
         label.isEditable = false
         label.isSelectable = false
@@ -31,17 +31,17 @@ class HeadLineNewsWidget:NSObject, PKWidget{
         label.cell?.wraps = false
         label.wantsLayer = true
         label.textColor = #colorLiteral(red: 1, green: 0.5328089595, blue: 0.4345889091, alpha: 1)
-        
+
         return label
     }()
-    
-    let rssParser:RSSParser
-    var items:[Item]{
+
+    let rssParser: RSSParser
+    var items: [Item] {
         self.rssParser.items
     }
     var currentIndex = 0
-    
-    public var isHighlighted = false {
+
+    var isHighlighted = false {
         didSet {
             if isHighlighted {
                 self.view.layer?.backgroundColor = NSColor.black.highlight(withLevel: 0.25)?.cgColor
@@ -50,54 +50,53 @@ class HeadLineNewsWidget:NSObject, PKWidget{
             }
         }
     }
-    
+
     override required init() {
-        let feedURL = URL(string: "https://news.yahoo.co.jp/rss/topics/top-picks.xml")!
-        self.rssParser = RSSParser.init(url: feedURL)
-        
+        guard let feedURL = URL(string: "https://news.yahoo.co.jp/rss/topics/top-picks.xml") else {
+            fatalError("should fix url path")
+        }
+        self.rssParser = RSSParser(url: feedURL)
+
         super.init()
-        
+
         self.setupView()
         self.view.addSubview(self.newsLabel)
     }
-    
+
     func viewDidAppear() {
         self.currentIndex = 0
         self.rssParser.parse()
         self.animation()
     }
-    
-    
-    func setupView(){
+
+    func setupView() {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = .black
         self.view.layer?.cornerRadius = 5
-        
+
         let tapGesture = NSClickGestureRecognizer()
         tapGesture.target = self
         tapGesture.action = #selector(tap)
         tapGesture.allowedTouchTypes = .direct
         self.view.addGestureRecognizer(tapGesture)
     }
-    
 
-    func animation(){
-        if self.currentIndex < self.items.count{
+    func animation() {
+        if self.currentIndex < self.items.count {
             let item = self.items[self.currentIndex]
             let news = "【\(item.title)】 \(item.description)"
             self.newsLabel.stringValue = news
-            //self.newsLabel.attributedStringValue
+            // self.newsLabel.attributedStringValue
             self.newsLabel.sizeToFit()
-            self.currentIndex+=1
+            self.currentIndex += 1
             self.setAnimation()
-        }
-        else{
+        } else {
             self.rssParser.parse()
             self.currentIndex = 0
         }
     }
-    
-    func setAnimation(){
+
+    func setAnimation() {
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
         animation.repeatCount = 0
         animation.duration = CFTimeInterval(self.newsLabel.frame.width / 100)
@@ -109,8 +108,7 @@ class HeadLineNewsWidget:NSObject, PKWidget{
         animation.delegate = self
         self.newsLabel.layer?.add(animation, forKey: "position")
     }
-    
-    
+
     @objc
     func tap(_ sender: NSGestureRecognizer?) {
         NSLog("\(self.view.frame)")
@@ -118,10 +116,10 @@ class HeadLineNewsWidget:NSObject, PKWidget{
         self.view.layer?.backgroundColor = .black
         self.animation()
     }
-    
+
 }
 
-extension HeadLineNewsWidget:CAAnimationDelegate{
+extension HeadLineNewsWidget: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         animation()
     }
@@ -131,19 +129,19 @@ extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
     private func shouldHighlight(for location: NSPoint, in view: NSView) -> Bool {
         self.view.convert(self.view.bounds, to: view).contains(location)
     }
-    
+
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseEnteredAtLocation location: NSPoint, in view: NSView) {
         self.isHighlighted = shouldHighlight(for: location, in: view)
     }
-    
+
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseMovedAtLocation location: NSPoint, in view: NSView) {
         self.isHighlighted = shouldHighlight(for: location, in: view)
     }
-    
+
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseClickAtLocation location: NSPoint, in view: NSView) {
         self.animation()
     }
-    
+
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseExitedAtLocation location: NSPoint, in view: NSView) {
         self.isHighlighted = false
     }
