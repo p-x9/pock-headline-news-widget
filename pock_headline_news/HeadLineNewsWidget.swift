@@ -129,7 +129,7 @@ extension HeadLineNewsWidget:CAAnimationDelegate{
 
 extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
     private func shouldHighlight(for location: NSPoint, in view: NSView) -> Bool {
-        view.frame.contains(location)
+        self.view.convert(self.view.bounds, to: view).contains(location)
     }
     
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseEnteredAtLocation location: NSPoint, in view: NSView) {
