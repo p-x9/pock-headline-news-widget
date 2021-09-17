@@ -39,7 +39,15 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     var items: [Item] {
         self.rssParser.items
     }
-    var currentIndex = 0
+    var currentIndex = -1
+    var currentItem: Item? {
+        if self.items.indices.contains(self.currentIndex) {
+            return self.items[self.currentIndex]
+        }
+        return nil
+    }
+
+    var isRunning = false
 
     var isHighlighted = false {
         didSet {
@@ -63,17 +71,16 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         self.view.addSubview(self.newsLabel)
     }
 
-    func viewDidAppear() {
-        self.currentIndex = 0
-        self.rssParser.parse()
-        self.animation()
-    }
-
     func setupView() {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = .black
         self.view.layer?.cornerRadius = 5
 
+        self.setupTapGesture()
+        self.setupLongPressGesture()
+    }
+
+    func setupTapGesture() {
         let tapGesture = NSClickGestureRecognizer()
         tapGesture.target = self
         tapGesture.action = #selector(tap)
@@ -81,18 +88,29 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         self.view.addGestureRecognizer(tapGesture)
     }
 
+    func setupLongPressGesture() {
+        let longPressGesture = NSPressGestureRecognizer()
+        longPressGesture.target = self
+        longPressGesture.action = #selector(longPress)
+        longPressGesture.allowedTouchTypes = .direct
+        self.view.addGestureRecognizer(longPressGesture)
+    }
+
     func animation() {
+        self.isRunning = true
+
+        self.currentIndex += 1
+
         if self.currentIndex < self.items.count {
             let item = self.items[self.currentIndex]
             let news = "【\(item.title)】 \(item.description)"
             self.newsLabel.stringValue = news
             // self.newsLabel.attributedStringValue
             self.newsLabel.sizeToFit()
-            self.currentIndex += 1
             self.setAnimation()
         } else {
             self.rssParser.parse()
-            self.currentIndex = 0
+            self.currentIndex = -1
         }
     }
 
@@ -109,19 +127,43 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         self.newsLabel.layer?.add(animation, forKey: "position")
     }
 
+    func openLink() {
+        guard let item = self.currentItem,
+              let url = URL(string: item.link) else {
+            return
+        }
+        NSWorkspace.shared.open(url)
+    }
+
     @objc
     func tap(_ sender: NSGestureRecognizer?) {
-        NSLog("\(self.view.frame)")
-        print(self.view.frame)
-        self.view.layer?.backgroundColor = .black
-        self.animation()
+        if !self.isRunning {
+            self.rssParser.parse {[weak self] _, _ in
+                DispatchQueue.main.async {
+                    self?.animation()
+                }
+            }
+        } else {
+            self.openLink()
+        }
+    }
+
+    @objc
+    func longPress(_ sender: NSGestureRecognizer?) {
+        self.rssParser.reset()
+        self.currentIndex = -1
+        self.isRunning = false
+        self.newsLabel.stringValue = ""
+        self.newsLabel.layer?.removeAllAnimations()
     }
 
 }
 
 extension HeadLineNewsWidget: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        animation()
+        if self.isRunning {
+            animation()
+        }
     }
 }
 
@@ -139,7 +181,15 @@ extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
     }
 
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseClickAtLocation location: NSPoint, in view: NSView) {
-        self.animation()
+        if !self.isRunning {
+            self.rssParser.parse {[weak self] _, _ in
+                DispatchQueue.main.async {
+                    self?.animation()
+                }
+            }
+        } else {
+            self.openLink()
+        }
     }
 
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseExitedAtLocation location: NSPoint, in view: NSView) {

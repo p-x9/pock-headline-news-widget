@@ -18,7 +18,7 @@ class RSSParser {
         self.items = []
     }
 
-    func parse() {
+    func parse(completion: @escaping (([Item], Error?) -> Void)) {
         self.items = []
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "GET"
@@ -30,8 +30,33 @@ class RSSParser {
                 print(result)
                 self.parse(xml: result)
             }
+            completion(self.items, error)
         }
         task.resume()
+    }
+
+    func parse() {
+        self.items = []
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let semaphore = DispatchSemaphore(value: 0)
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, _, error in
+            if error == nil ,
+               let data = data,
+               let result = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
+                print(result)
+                self.parse(xml: result)
+            }
+            semaphore.signal()
+        }
+        task.resume()
+
+        semaphore.wait()
+    }
+
+    func reset() {
+        self.items = []
     }
 
     private func parse(xml: String) {
