@@ -111,6 +111,7 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         } else {
             self.rssParser.parse()
             self.currentIndex = -1
+            self.animation()
         }
     }
 

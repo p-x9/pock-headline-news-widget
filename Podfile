@@ -7,5 +7,6 @@ target 'pock_headline_news' do
 
   # Pods for pock_headline_news
   pod 'PockKit'
+  pod 'Defaults'
 
 end

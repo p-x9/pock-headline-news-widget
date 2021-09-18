@@ -25,5 +25,9 @@
 	<string>1</string>
 	<key>NSPrincipalClass</key>
 	<string>pock_headline_news.HeadLineNewsWidget</string>
+	<key>PKWidgetAuthor</key>
+	<string>p_x9</string>
+	<key>PKWidgetPreferenceClass</key>
+	<string>pock_headline_news.HeadlineNewsWidgetPreferencePane</string>
 </dict>
 </plist>
