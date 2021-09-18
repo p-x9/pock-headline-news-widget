@@ -15,6 +15,7 @@
 		422F66FA26F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66F826F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.swift */; };
 		422F66FB26F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422F66F926F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.xib */; };
 		422F66FD26F6393D00AEFAE0 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66FC26F6393D00AEFAE0 /* Preferences.swift */; };
+		422F670126F6620700AEFAE0 /* HeadLineNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F670026F6620700AEFAE0 /* HeadLineNewsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		422F66F826F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineNewsWidgetPreferencePane.swift; sourceTree = "<group>"; };
 		422F66F926F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeadlineNewsWidgetPreferencePane.xib; sourceTree = "<group>"; };
 		422F66FC26F6393D00AEFAE0 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		422F670026F6620700AEFAE0 /* HeadLineNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadLineNewsView.swift; sourceTree = "<group>"; };
 		491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pock_headline_news.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.debug.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				422F66CE26F2049400AEFAE0 /* HeadLineNewsWidget.swift */,
+				422F670026F6620700AEFAE0 /* HeadLineNewsView.swift */,
 				422F66EA26F31F6800AEFAE0 /* RSSParser.swift */,
 				422F66F026F6186900AEFAE0 /* Model */,
 				422F66F126F6187700AEFAE0 /* Extension */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				422F66ED26F3A08D00AEFAE0 /* NSColor.swift in Sources */,
+				422F670126F6620700AEFAE0 /* HeadLineNewsView.swift in Sources */,
 				422F66EB26F31F6800AEFAE0 /* RSSParser.swift in Sources */,
 				422F66FD26F6393D00AEFAE0 /* Preferences.swift in Sources */,
 				422F66FA26F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.swift in Sources */,

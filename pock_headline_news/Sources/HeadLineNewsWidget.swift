@@ -16,50 +16,18 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
     var customizationLabel: String = "HeadLineNews"
 
-    var view = NSView(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
-
-    let newsLabel: NSTextField = {
-        let label = NSTextField()
-        label.isEditable = false
-        label.isSelectable = false
-        label.textColor = .labelColor
-        label.drawsBackground = false
-        label.isBezeled = false
-        label.alignment = .natural
-        label.font = .systemFont(ofSize: 20)
-        label.lineBreakMode = .byClipping
-        label.cell?.isScrollable = true
-        label.cell?.wraps = false
-        label.wantsLayer = true
-        label.textColor = #colorLiteral(red: 1, green: 0.5328089595, blue: 0.4345889091, alpha: 1)
-
-        return label
-    }()
+    var view: NSView!
+    let headLineNewsView = HeadLineNewsView(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
 
     let rssParser: RSSParser
     var items: [Item] {
         self.rssParser.items
     }
-    var currentIndex = -1
-    var currentItem: Item? {
-        if self.items.indices.contains(self.currentIndex) {
-            return self.items[self.currentIndex]
-        }
-        return nil
-    }
 
     var speed: Float { Defaults[.textSpeed] }
     var textColor: NSColor { NSColor(rgba: Defaults[.textColor]) }
-    var isRunning = false
-
-    var isHighlighted = false {
-        didSet {
-            if isHighlighted {
-                self.view.layer?.backgroundColor = NSColor.black.highlight(withLevel: 0.25)?.cgColor
-            } else {
-                self.view.layer?.backgroundColor = NSColor.black.cgColor
-            }
-        }
+    var isRunning: Bool {
+        self.headLineNewsView.isRunning
     }
 
     override required init() {
@@ -70,23 +38,18 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
         super.init()
 
-        self.setupView()
-        self.view.addSubview(self.newsLabel)
-        self.newsLabel.textColor = self.textColor
+        self.view = self.headLineNewsView
+        self.headLineNewsView.delegate = self
+        self.headLineNewsView.speed = self.speed
+        self.headLineNewsView.textColor = self.textColor
+
+        self.setupTapGesture()
+        self.setupLongPressGesture()
 
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextColor),
                                                           name: .shouldChangeTextColor, object: nil)
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextSpeed),
                                                           name: .shouldChangeTextSpeed, object: nil)
-    }
-
-    func setupView() {
-        self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = .black
-        self.view.layer?.cornerRadius = 5
-
-        self.setupTapGesture()
-        self.setupLongPressGesture()
     }
 
     func setupTapGesture() {
@@ -105,41 +68,8 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         self.view.addGestureRecognizer(longPressGesture)
     }
 
-    func animation() {
-        self.isRunning = true
-
-        self.currentIndex += 1
-
-        if self.currentIndex < self.items.count {
-            let item = self.items[self.currentIndex]
-            let news = "【\(item.title)】 \(item.description)"
-            self.newsLabel.stringValue = news
-            // self.newsLabel.attributedStringValue
-            self.newsLabel.sizeToFit()
-            self.setAnimation()
-        } else {
-            self.rssParser.parse()
-            self.currentIndex = -1
-            self.animation()
-        }
-    }
-
-    func setAnimation() {
-        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
-        animation.repeatCount = 0
-        animation.duration = CFTimeInterval(self.newsLabel.frame.width / 200)
-        animation.fromValue = NSValue(point: NSPoint(x: self.view.frame.width, y: 0))
-        animation.toValue = NSValue(point: NSPoint(x: -self.newsLabel.frame.width, y: 0))
-        animation.isAdditive = true
-        animation.isRemovedOnCompletion = false
-        animation.fillMode = .both
-        animation.delegate = self
-        self.newsLabel.layer?.speed = self.speed
-        self.newsLabel.layer?.add(animation, forKey: "position")
-    }
-
     func openLink() {
-        guard let item = self.currentItem,
+        guard let item = self.headLineNewsView.currentItem,
               let url = URL(string: item.link) else {
             return
         }
@@ -149,10 +79,8 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     @objc
     func tap(_ sender: NSGestureRecognizer?) {
         if !self.isRunning {
-            self.rssParser.parse {[weak self] _, _ in
-                DispatchQueue.main.async {
-                    self?.animation()
-                }
+            self.rssParser.parse {[weak self] items, _ in
+                self?.headLineNewsView.startAnimating(with: items)
             }
         } else {
             self.openLink()
@@ -162,58 +90,41 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     @objc
     func longPress(_ sender: NSGestureRecognizer?) {
         self.rssParser.reset()
-        self.currentIndex = -1
-        self.isRunning = false
-        self.newsLabel.stringValue = ""
-        self.newsLabel.layer?.removeAllAnimations()
+        self.headLineNewsView.stopAnimating()
     }
 
     @objc
     func updateTextColor() {
-        self.newsLabel.textColor = self.textColor
+        self.headLineNewsView.textColor = self.textColor
     }
 
     @objc
     func updateTextSpeed() {
-        guard let layer = self.newsLabel.layer else {
-            return
-        }
-
-        layer.timeOffset = layer.convertTime(CACurrentMediaTime(), from: nil)
-        layer.beginTime = CACurrentMediaTime()
-        layer.speed = self.speed
-
+        self.headLineNewsView.speed = self.speed
     }
 
-}
-
-extension HeadLineNewsWidget: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if self.isRunning {
-            animation()
-        }
-    }
 }
 
 extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
     private func shouldHighlight(for location: NSPoint, in view: NSView) -> Bool {
-        self.view.convert(self.view.bounds, to: view).contains(location)
+        headLineNewsView.convert(headLineNewsView.bounds, to: view).contains(location)
     }
 
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseEnteredAtLocation location: NSPoint, in view: NSView) {
-        self.isHighlighted = shouldHighlight(for: location, in: view)
+        self.headLineNewsView.isHighlighted = shouldHighlight(for: location, in: view)
     }
 
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseMovedAtLocation location: NSPoint, in view: NSView) {
-        self.isHighlighted = shouldHighlight(for: location, in: view)
+        self.headLineNewsView.isHighlighted = shouldHighlight(for: location, in: view)
     }
 
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseClickAtLocation location: NSPoint, in view: NSView) {
+        if !headLineNewsView.isHighlighted {
+            return
+        }
         if !self.isRunning {
-            self.rssParser.parse {[weak self] _, _ in
-                DispatchQueue.main.async {
-                    self?.animation()
-                }
+            self.rssParser.parse {[weak self] items, _ in
+                self?.headLineNewsView.startAnimating(with: items)
             }
         } else {
             self.openLink()
@@ -221,6 +132,17 @@ extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
     }
 
     func screenEdgeController(_ controller: PKScreenEdgeController, mouseExitedAtLocation location: NSPoint, in view: NSView) {
-        self.isHighlighted = false
+        self.headLineNewsView.isHighlighted = false
+    }
+}
+
+extension HeadLineNewsWidget: HeadLineNewsViewDelegate {
+    func nextItems(for view: HeadLineNewsView) -> [Item] {
+        self.rssParser.parse()
+        return self.rssParser.items
+    }
+
+    func headLineNewsView(_ view: HeadLineNewsView, animationEndedWith items: [Item]) {
+
     }
 }

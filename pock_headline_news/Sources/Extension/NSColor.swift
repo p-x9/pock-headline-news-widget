@@ -10,6 +10,12 @@ import Cocoa
 
 extension NSColor {
     static let touchBarBackgroundColor = NSColor(red: 54 / 256, green: 54 / 256, blue: 54 / 256, alpha: 1.0)
+    static var random: NSColor {
+        let r = CGFloat.random(in: 0 ... 255) / 255.0
+        let g = CGFloat.random(in: 0 ... 255) / 255.0
+        let b = CGFloat.random(in: 0 ... 255) / 255.0
+        return NSColor(red: r, green: g, blue: b, alpha: 1.0)
+    }
 
 }
 
