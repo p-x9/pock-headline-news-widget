@@ -9,6 +9,7 @@
 import PockKit
 import Cocoa
 import SnapKit
+import Defaults
 
 class HeadLineNewsWidget: NSObject, PKWidget {
     var identifier: NSTouchBarItem.Identifier = NSTouchBarItem.Identifier(rawValue: "\(HeadLineNewsWidget.self)")
@@ -47,6 +48,8 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         return nil
     }
 
+    var speed: CGFloat { Defaults[.textSpeed] }
+    var textColor: NSColor { NSColor(rgba: Defaults[.textColor]) }
     var isRunning = false
 
     var isHighlighted = false {
@@ -69,6 +72,10 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
         self.setupView()
         self.view.addSubview(self.newsLabel)
+        self.newsLabel.textColor = self.textColor
+
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextColor),
+                                                          name: .shouldChangeTextColor, object: nil)
     }
 
     func setupView() {
@@ -118,7 +125,7 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     func setAnimation() {
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
         animation.repeatCount = 0
-        animation.duration = CFTimeInterval(self.newsLabel.frame.width / 100)
+        animation.duration = CFTimeInterval(self.newsLabel.frame.width / (200 * self.speed))
         animation.fromValue = NSValue(point: NSPoint(x: self.view.frame.width, y: 0))
         animation.toValue = NSValue(point: NSPoint(x: -self.newsLabel.frame.width, y: 0))
         animation.isAdditive = true
@@ -156,6 +163,11 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         self.isRunning = false
         self.newsLabel.stringValue = ""
         self.newsLabel.layer?.removeAllAnimations()
+    }
+
+    @objc
+    func updateTextColor() {
+        self.newsLabel.textColor = self.textColor
     }
 
 }
