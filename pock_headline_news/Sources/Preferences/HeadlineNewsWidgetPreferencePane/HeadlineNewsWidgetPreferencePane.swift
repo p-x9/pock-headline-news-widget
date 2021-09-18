@@ -14,9 +14,9 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
 
     @IBOutlet private weak var speedSlider: NSSlider! {
         didSet {
-            self.speedSlider.minValue = 0.001
+            self.speedSlider.minValue = 0.25
             self.speedSlider.maxValue = 2.0
-            self.speedSlider.doubleValue = Double(Defaults[.textSpeed])
+            self.speedSlider.floatValue = Defaults[.textSpeed]
         }
     }
     @IBOutlet private var textColorWell: NSColorWell! {
@@ -30,7 +30,8 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     }
 
     @IBAction private func speedSliderValueChanged(_ sender: Any) {
-        Defaults[.textSpeed] = CGFloat(self.speedSlider.doubleValue)
+        Defaults[.textSpeed] = self.speedSlider.floatValue
+        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeTextSpeed, object: nil)
     }
 
     @IBAction private func textColorChanged(_ sender: Any) {

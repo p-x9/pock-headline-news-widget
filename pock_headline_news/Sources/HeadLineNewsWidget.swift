@@ -48,7 +48,7 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         return nil
     }
 
-    var speed: CGFloat { Defaults[.textSpeed] }
+    var speed: Float { Defaults[.textSpeed] }
     var textColor: NSColor { NSColor(rgba: Defaults[.textColor]) }
     var isRunning = false
 
@@ -76,6 +76,8 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextColor),
                                                           name: .shouldChangeTextColor, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextSpeed),
+                                                          name: .shouldChangeTextSpeed, object: nil)
     }
 
     func setupView() {
@@ -125,13 +127,14 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     func setAnimation() {
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
         animation.repeatCount = 0
-        animation.duration = CFTimeInterval(self.newsLabel.frame.width / (200 * self.speed))
+        animation.duration = CFTimeInterval(self.newsLabel.frame.width / 200)
         animation.fromValue = NSValue(point: NSPoint(x: self.view.frame.width, y: 0))
         animation.toValue = NSValue(point: NSPoint(x: -self.newsLabel.frame.width, y: 0))
         animation.isAdditive = true
         animation.isRemovedOnCompletion = false
         animation.fillMode = .both
         animation.delegate = self
+        self.newsLabel.layer?.speed = self.speed
         self.newsLabel.layer?.add(animation, forKey: "position")
     }
 
@@ -168,6 +171,18 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     @objc
     func updateTextColor() {
         self.newsLabel.textColor = self.textColor
+    }
+
+    @objc
+    func updateTextSpeed() {
+        guard let layer = self.newsLabel.layer else {
+            return
+        }
+
+        layer.timeOffset = layer.convertTime(CACurrentMediaTime(), from: nil)
+        layer.beginTime = CACurrentMediaTime()
+        layer.speed = self.speed
+
     }
 
 }

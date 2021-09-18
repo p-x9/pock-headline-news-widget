@@ -11,9 +11,10 @@ import Defaults
 
 extension NSNotification.Name {
     static let shouldChangeTextColor = NSNotification.Name("shouldChangeColor")
+    static let shouldChangeTextSpeed = NSNotification.Name("shouldChangeTextSpeed")
 }
 
 extension Defaults.Keys {
-    static let textSpeed = Defaults.Key<CGFloat>("textSpeed", default: 0.5)
+    static let textSpeed = Defaults.Key<Float>("textSpeed", default: 1)
     static let textColor = Defaults.Key<Int>("textColor", default: 0xFFFFFFFF)
 }
