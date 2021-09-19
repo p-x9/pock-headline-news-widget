@@ -19,7 +19,7 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     var view: NSView!
     let headLineNewsView = HeadLineNewsView(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
 
-    let rssParser: RSSParser
+    var rssParser: RSSParser
     var items: [Item] {
         self.rssParser.items
     }
@@ -31,7 +31,7 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     }
 
     override required init() {
-        guard let feedURL = URL(string: "https://news.yahoo.co.jp/rss/topics/top-picks.xml") else {
+        guard let feedURL = URL(string: Defaults[.rssUrl]) else {
             fatalError("should fix url path")
         }
         self.rssParser = RSSParser(url: feedURL)
@@ -55,6 +55,8 @@ class HeadLineNewsWidget: NSObject, PKWidget {
                                                           name: .shouldChangeTextSpeed, object: nil)
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextFont),
                                                           name: .shouldChangeFont, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateRssUrl),
+                                                          name: .shouldChangeRssUrl, object: nil)
     }
 
     func setupTapGesture() {
@@ -114,6 +116,18 @@ class HeadLineNewsWidget: NSObject, PKWidget {
             return
         }
         self.headLineNewsView.font = newFont
+    }
+
+    @objc
+    func updateRssUrl() {
+        self.headLineNewsView.stopAnimating()
+        guard let rssUrl = URL(string: Defaults[.rssUrl]) else {
+            return
+        }
+        self.rssParser = RSSParser(url: rssUrl)
+        self.rssParser.parse {[weak self] items, _ in
+            self?.headLineNewsView.startAnimating(with: items)
+        }
     }
 
 }

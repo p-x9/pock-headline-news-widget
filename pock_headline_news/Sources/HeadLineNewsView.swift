@@ -132,7 +132,8 @@ class HeadLineNewsView: NSView {
             self.setAnimation()
         } else {
             self.delegate?.headLineNewsView(self, animationEndedWith: self.items)
-            if let items = self.delegate?.nextItems(for: self) {
+            if let items = self.delegate?.nextItems(for: self),
+               !items.isEmpty {
                 self.items = items
             }
             self.currentIndex = -1
@@ -155,6 +156,9 @@ class HeadLineNewsView: NSView {
     }
 
     func startAnimating(with items: [Item]) {
+        if items.isEmpty {
+            return
+        }
         self.items = items
         DispatchQueue.main.async {
             self.animation()

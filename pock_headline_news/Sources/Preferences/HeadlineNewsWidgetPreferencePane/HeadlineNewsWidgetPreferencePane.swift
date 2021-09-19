@@ -12,6 +12,12 @@ import Defaults
 class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     static var nibName: NSNib.Name = "\(HeadlineNewsWidgetPreferencePane.self)"
 
+    @IBOutlet private var rssTextField: NSTextField! {
+        didSet {
+            self.rssTextField.stringValue = Defaults[.rssUrl]
+        }
+    }
+
     @IBOutlet private weak var speedSlider: NSSlider! {
         didSet {
             self.speedSlider.minValue = 0.0
@@ -43,6 +49,19 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     override func viewDidDisappear() {
         let panel = NSFontManager.shared.fontPanel(true)
         panel?.close()
+    }
+
+    @IBAction private func rssTextFieldChanged(_ sender: Any) {
+        if let url = URL(string: self.rssTextField.stringValue),
+           url.absoluteString.hasPrefix("https://") {
+            self.update(rssUrl: url)
+        } else {
+            self.presentAlert(title: "Invalid URL",
+                              message: "Please check rss URL.\n(Only 'https://' supported)",
+                              style: .critical,
+                              completion: nil)
+            self.rssTextField.stringValue = Defaults[.rssUrl]
+        }
     }
 
     @IBAction private func speedSliderValueChanged(_ sender: Any) {
@@ -83,6 +102,11 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
         Defaults[.fontSize] = font.pointSize
         Defaults[.fontName] = font.fontName
         NSWorkspace.shared.notificationCenter.post(name: .shouldChangeFont, object: nil)
+    }
+
+    func update(rssUrl: URL) {
+        Defaults[.rssUrl] = rssUrl.absoluteString
+        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeRssUrl, object: nil)
     }
 }
 

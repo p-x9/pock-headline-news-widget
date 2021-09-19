@@ -21,6 +21,7 @@ class RSSParser {
     func parse(completion: @escaping (([Item], Error?) -> Void)) {
         self.items = []
         let request = NSMutableURLRequest(url: url)
+        request.timeoutInterval = 5
         request.httpMethod = "GET"
 
         let task = URLSession.shared.dataTask(with: request as URLRequest) { data, _, error in
@@ -38,6 +39,7 @@ class RSSParser {
     func parse() {
         self.items = []
         let request = NSMutableURLRequest(url: url)
+        request.timeoutInterval = 5
         request.httpMethod = "GET"
 
         let semaphore = DispatchSemaphore(value: 0)
