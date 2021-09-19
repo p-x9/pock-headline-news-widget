@@ -41,6 +41,11 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
         }
     }
     @IBOutlet private var fontSelectButton: NSButton!
+    @IBOutlet private var backgroundColorWell: NSColorWell! {
+        didSet {
+            self.backgroundColorWell.color = NSColor(rgba: Defaults[.backgroundColor])
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,9 +85,19 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
         }
     }
 
-    @IBAction private func textColorChanged(_ sender: Any) {
-        Defaults[.textColor] = self.textColorWell.color.rgbaInt
-        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeTextColor, object: nil)
+    @IBAction private func colorChanged(_ sender: Any) {
+        guard let colorWell = sender as? NSColorWell else {
+            return
+        }
+        switch colorWell {
+        case self.textColorWell:
+            Defaults[.textColor] = colorWell.color.rgbaInt
+        case self.backgroundColorWell:
+            Defaults[.backgroundColor] = colorWell.color.rgbaInt
+        default:
+            break
+        }
+        NSWorkspace.shared.notificationCenter.post(name: .shouldReloadUISettings, object: nil)
     }
 
     @IBAction private func handleFontSelectButton(_ sender: Any) {
@@ -95,18 +110,18 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
 
     func update(speed: Float) {
         Defaults[.textSpeed] = speed
-        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeTextSpeed, object: nil)
+        NSWorkspace.shared.notificationCenter.post(name: .shouldReloadUISettings, object: nil)
     }
 
     func update(font: NSFont) {
         Defaults[.fontSize] = font.pointSize
         Defaults[.fontName] = font.fontName
-        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeFont, object: nil)
+        NSWorkspace.shared.notificationCenter.post(name: .shouldReloadUISettings, object: nil)
     }
 
     func update(rssUrl: URL) {
         Defaults[.rssUrl] = rssUrl.absoluteString
-        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeRssUrl, object: nil)
+        NSWorkspace.shared.notificationCenter.post(name: .shouldReloadUISettings, object: nil)
     }
 }
 

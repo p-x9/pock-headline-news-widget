@@ -36,9 +36,9 @@ class HeadLineNewsView: NSView {
     var isHighlighted = false {
         didSet {
             if isHighlighted {
-                self.layer?.backgroundColor = NSColor.black.highlight(withLevel: 0.25)?.cgColor
+                self.layer?.backgroundColor = self.backgroundColor.highlight(withLevel: 0.25)?.cgColor
             } else {
-                self.layer?.backgroundColor = NSColor.black.cgColor
+                self.layer?.backgroundColor = self.backgroundColor.cgColor
             }
         }
     }
@@ -79,6 +79,12 @@ class HeadLineNewsView: NSView {
         }
     }
 
+    var backgroundColor: NSColor = .black {
+        didSet {
+            self.layer?.backgroundColor = self.backgroundColor.cgColor
+        }
+    }
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
 
@@ -110,7 +116,7 @@ class HeadLineNewsView: NSView {
 
     func setupView() {
         self.wantsLayer = true
-        self.layer?.backgroundColor = .black
+        self.layer?.backgroundColor = self.backgroundColor.cgColor
         self.layer?.cornerRadius = 5
 
         self.addSubview(self.newsLabel)

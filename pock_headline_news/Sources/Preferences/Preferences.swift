@@ -11,9 +11,7 @@ import Defaults
 
 extension NSNotification.Name {
     static let shouldChangeRssUrl = NSNotification.Name("shouldChangeRssUrl")
-    static let shouldChangeTextColor = NSNotification.Name("shouldChangeColor")
-    static let shouldChangeTextSpeed = NSNotification.Name("shouldChangeTextSpeed")
-    static let shouldChangeFont = NSNotification.Name("shouldChangeFont")
+    static let shouldReloadUISettings = NSNotification.Name("shouldReloadUISettings")
 }
 
 extension Defaults.Keys {
@@ -22,4 +20,5 @@ extension Defaults.Keys {
     static let textColor = Defaults.Key<Int>("textColor", default: 0xFFFFFFFF)
     static let fontName = Defaults.Key<String>("fontName", default: "HelveticaNeue")
     static let fontSize = Defaults.Key<CGFloat>("fontSize", default: 20.0)
+    static let backgroundColor = Defaults.Key<Int>("backgroundColor", default: 0x00000000)
 }

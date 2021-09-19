@@ -26,6 +26,10 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
     var speed: Float { Defaults[.textSpeed] }
     var textColor: NSColor { NSColor(rgba: Defaults[.textColor]) }
+    var font: NSFont {
+        NSFont(name: Defaults[.fontName], size: Defaults[.fontSize]) ?? .systemFont(ofSize: 20)
+    }
+    var backgroundColor: NSColor { NSColor(rgba: Defaults[.backgroundColor]) }
     var isRunning: Bool {
         self.headLineNewsView.isRunning
     }
@@ -40,21 +44,13 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
         self.view = self.headLineNewsView
         self.headLineNewsView.delegate = self
-        self.headLineNewsView.speed = self.speed
-        self.headLineNewsView.textColor = self.textColor
-
-        let font = NSFont(name: Defaults[.fontName], size: Defaults[.fontSize])
-        self.headLineNewsView.font = font ?? .systemFont(ofSize: 20)
+        self.updateUISettings()
 
         self.setupTapGesture()
         self.setupLongPressGesture()
 
-        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextColor),
-                                                          name: .shouldChangeTextColor, object: nil)
-        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextSpeed),
-                                                          name: .shouldChangeTextSpeed, object: nil)
-        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextFont),
-                                                          name: .shouldChangeFont, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateUISettings),
+                                                          name: .shouldReloadUISettings, object: nil)
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateRssUrl),
                                                           name: .shouldChangeRssUrl, object: nil)
     }
@@ -101,21 +97,11 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     }
 
     @objc
-    func updateTextColor() {
+    func updateUISettings() {
         self.headLineNewsView.textColor = self.textColor
-    }
-
-    @objc
-    func updateTextSpeed() {
         self.headLineNewsView.speed = self.speed
-    }
-
-    @objc
-    func updateTextFont() {
-        guard let newFont = NSFont(name: Defaults[.fontName], size: Defaults[.fontSize]) else {
-            return
-        }
-        self.headLineNewsView.font = newFont
+        self.headLineNewsView.font = self.font
+        self.headLineNewsView.backgroundColor = self.backgroundColor
     }
 
     @objc
