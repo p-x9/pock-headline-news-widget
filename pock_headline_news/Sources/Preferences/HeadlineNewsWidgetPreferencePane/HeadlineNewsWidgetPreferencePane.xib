@@ -7,6 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="HeadlineNewsWidgetPreferencePane" customModule="pock_headline_news" customModuleProvider="target">
             <connections>
+                <outlet property="fontSelectButton" destination="Y5j-AS-Kno" id="S6b-wQ-lxf"/>
+                <outlet property="fontTextField" destination="XG6-iT-YuT" id="OMr-1G-1mN"/>
                 <outlet property="speedSlider" destination="FPy-ze-QRX" id="b2a-xV-SRH"/>
                 <outlet property="speedTextField" destination="Jhk-Kc-v29" id="ZfM-Rn-hbV"/>
                 <outlet property="textColorWell" destination="kCN-hO-ybw" id="40Y-J5-KVM"/>
@@ -132,6 +134,9 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="handleFontSelectButton:" target="-2" id="0im-J1-nNB"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <visibilityPriorities>

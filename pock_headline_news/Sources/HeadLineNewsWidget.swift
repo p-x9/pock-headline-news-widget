@@ -50,6 +50,8 @@ class HeadLineNewsWidget: NSObject, PKWidget {
                                                           name: .shouldChangeTextColor, object: nil)
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextSpeed),
                                                           name: .shouldChangeTextSpeed, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(updateTextFont),
+                                                          name: .shouldChangeFont, object: nil)
     }
 
     func setupTapGesture() {
@@ -101,6 +103,14 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     @objc
     func updateTextSpeed() {
         self.headLineNewsView.speed = self.speed
+    }
+
+    @objc
+    func updateTextFont() {
+        guard let newFont = NSFont(name: Defaults[.fontName], size: Defaults[.fontSize]) else {
+            return
+        }
+        self.headLineNewsView.font = newFont
     }
 
 }

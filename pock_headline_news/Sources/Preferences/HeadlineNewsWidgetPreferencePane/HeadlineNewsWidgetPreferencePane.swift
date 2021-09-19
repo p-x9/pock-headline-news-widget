@@ -29,9 +29,20 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
             self.textColorWell.color = NSColor(rgba: Defaults[.textColor])
         }
     }
+    @IBOutlet private var fontTextField: NSTextField! {
+        didSet {
+            self.fontTextField.stringValue = "\(Defaults[.fontName]) \(Int(Defaults[.fontSize]))"
+        }
+    }
+    @IBOutlet private var fontSelectButton: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewDidDisappear() {
+        let panel = NSFontManager.shared.fontPanel(true)
+        panel?.close()
     }
 
     @IBAction private func speedSliderValueChanged(_ sender: Any) {
@@ -55,8 +66,33 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
         NSWorkspace.shared.notificationCenter.post(name: .shouldChangeTextColor, object: nil)
     }
 
+    @IBAction private func handleFontSelectButton(_ sender: Any) {
+        let fontManager = NSFontManager.shared
+        fontManager.target = self
+        let panel = fontManager.fontPanel(true)
+        panel?.orderFront(self)
+        panel?.isEnabled = true
+    }
+
     func update(speed: Float) {
         Defaults[.textSpeed] = speed
         NSWorkspace.shared.notificationCenter.post(name: .shouldChangeTextSpeed, object: nil)
+    }
+
+    func update(font: NSFont) {
+        Defaults[.fontSize] = font.pointSize
+        Defaults[.fontName] = font.fontName
+        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeFont, object: nil)
+    }
+}
+
+extension HeadlineNewsWidgetPreferencePane: NSFontChanging {
+    func changeFont(_ sender: NSFontManager?) {
+        guard let fontManager = sender else {
+            return
+        }
+        let newFont = fontManager.convert(.systemFont(ofSize: 20)) // dummy font
+        self.update(font: newFont)
+        self.fontTextField.stringValue = "\(newFont.fontName) \(Int(newFont.pointSize))"
     }
 }

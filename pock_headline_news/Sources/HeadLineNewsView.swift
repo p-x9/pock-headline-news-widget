@@ -72,6 +72,12 @@ class HeadLineNewsView: NSView {
         }
     }
 
+    var font: NSFont = .systemFont(ofSize: 20) {
+        didSet {
+            self.newsLabel.font = self.font
+        }
+    }
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
 
