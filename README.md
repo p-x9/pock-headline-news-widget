@@ -21,6 +21,7 @@ https://news.yahoo.co.jp/rss/topics/top-picks.xml
 It's very simple to use.
 - tap: start animating. If you tap during the animation, the full article will open in your browser.
 - long press: stop
+
 You can customize following properties
 - text animating speed
 - text font
