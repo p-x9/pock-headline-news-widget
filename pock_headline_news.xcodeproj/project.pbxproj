@@ -31,6 +31,7 @@
 		422F66F926F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeadlineNewsWidgetPreferencePane.xib; sourceTree = "<group>"; };
 		422F66FC26F6393D00AEFAE0 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		422F670026F6620700AEFAE0 /* HeadLineNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadLineNewsView.swift; sourceTree = "<group>"; };
+		422F670226F6F4D400AEFAE0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pock_headline_news.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.debug.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				422F66C726F2020200AEFAE0 /* Info.plist */,
+				422F670226F6F4D400AEFAE0 /* README.md */,
 				422F66CD26F2049400AEFAE0 /* pock_headline_news-Bridging-Header.h */,
 				422F66EF26F6185200AEFAE0 /* Sources */,
 			);
