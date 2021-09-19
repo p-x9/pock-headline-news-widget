@@ -43,6 +43,9 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         self.headLineNewsView.speed = self.speed
         self.headLineNewsView.textColor = self.textColor
 
+        let font = NSFont(name: Defaults[.fontName], size: Defaults[.fontSize])
+        self.headLineNewsView.font = font ?? .systemFont(ofSize: 20)
+
         self.setupTapGesture()
         self.setupLongPressGesture()
 

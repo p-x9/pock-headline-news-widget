@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SnapKit
 
 protocol HeadLineNewsViewDelegate: AnyObject {
     func nextItems(for view: HeadLineNewsView) -> [Item]
@@ -82,14 +83,12 @@ class HeadLineNewsView: NSView {
         super.init(frame: frameRect)
 
         self.setupView()
-        self.addSubview(self.newsLabel)
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
         self.setupView()
-        self.addSubview(self.newsLabel)
     }
 
     override func touchesBegan(with event: NSEvent) {
@@ -113,6 +112,11 @@ class HeadLineNewsView: NSView {
         self.wantsLayer = true
         self.layer?.backgroundColor = .black
         self.layer?.cornerRadius = 5
+
+        self.addSubview(self.newsLabel)
+        self.newsLabel.snp.makeConstraints {make in
+            make.centerY.equalToSuperview()
+        }
     }
 
     func animation() {
