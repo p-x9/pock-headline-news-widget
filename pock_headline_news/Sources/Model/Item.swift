@@ -13,4 +13,12 @@ struct Item {
     var pubDate: String
     var link: String
     var description: String
+
+    func getPubDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZZZ"
+
+        return dateFormatter.date(from: self.pubDate)
+    }
 }

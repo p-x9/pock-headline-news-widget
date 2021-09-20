@@ -20,9 +20,7 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     let headLineNewsView = HeadLineNewsView(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
 
     var rssParser: RSSParser
-    var items: [Item] {
-        self.rssParser.items
-    }
+    var items: [Item] = []
 
     var speed: Float { Defaults[.textSpeed] }
     var textColor: NSColor { NSColor(rgba: Defaults[.textColor]) }
@@ -34,11 +32,12 @@ class HeadLineNewsWidget: NSObject, PKWidget {
         self.headLineNewsView.isRunning
     }
 
+    var rssURLs: [URL] {
+        Defaults[.rssURLs].compactMap { URL(string: $0) }
+    }
+
     override required init() {
-        guard let feedURL = URL(string: Defaults[.rssUrl]) else {
-            fatalError("should fix url path")
-        }
-        self.rssParser = RSSParser(url: feedURL)
+        self.rssParser = RSSParser()
 
         super.init()
 
@@ -82,9 +81,8 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     @objc
     func tap(_ sender: NSGestureRecognizer?) {
         if !self.isRunning {
-            self.rssParser.parse {[weak self] items, _ in
-                self?.headLineNewsView.startAnimating(with: items)
-            }
+            self.items = self.rssParser.parse(urls: self.rssURLs)
+            self.headLineNewsView.startAnimating(with: items)
         } else {
             self.openLink()
         }
@@ -92,7 +90,6 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
     @objc
     func longPress(_ sender: NSGestureRecognizer?) {
-        self.rssParser.reset()
         self.headLineNewsView.stopAnimating()
     }
 
@@ -106,13 +103,10 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
     @objc
     func updateRssUrl() {
-        self.headLineNewsView.stopAnimating()
-        guard let rssUrl = URL(string: Defaults[.rssUrl]) else {
-            return
-        }
-        self.rssParser = RSSParser(url: rssUrl)
-        self.rssParser.parse {[weak self] items, _ in
-            self?.headLineNewsView.startAnimating(with: items)
+        if self.isRunning {
+            self.headLineNewsView.stopAnimating()
+            self.items = self.rssParser.parse(urls: self.rssURLs)
+            self.headLineNewsView.startAnimating(with: items)
         }
     }
 
@@ -136,9 +130,8 @@ extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
             return
         }
         if !self.isRunning {
-            self.rssParser.parse {[weak self] items, _ in
-                self?.headLineNewsView.startAnimating(with: items)
-            }
+            self.items = self.rssParser.parse(urls: self.rssURLs)
+            self.headLineNewsView.startAnimating(with: items)
         } else {
             self.openLink()
         }
@@ -151,8 +144,8 @@ extension HeadLineNewsWidget: PKScreenEdgeMouseDelegate {
 
 extension HeadLineNewsWidget: HeadLineNewsViewDelegate {
     func nextItems(for view: HeadLineNewsView) -> [Item] {
-        self.rssParser.parse()
-        return self.rssParser.items
+        self.items = self.rssParser.parse(urls: self.rssURLs)
+        return self.items
     }
 
     func headLineNewsView(_ view: HeadLineNewsView, animationEndedWith items: [Item]) {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4200788F26F8B43F007AE2DF /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200788E26F8B43F007AE2DF /* TextFieldTableViewCell.swift */; };
+		4200789626F8EB4F007AE2DF /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200789426F8EB4F007AE2DF /* TextFieldAlert.swift */; };
+		4200789726F8EB4F007AE2DF /* TextFieldAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4200789526F8EB4F007AE2DF /* TextFieldAlert.xib */; };
 		422F66CF26F2049400AEFAE0 /* HeadLineNewsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66CE26F2049400AEFAE0 /* HeadLineNewsWidget.swift */; };
 		422F66E126F31DAA00AEFAE0 /* Pods_pock_headline_news.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */; };
 		422F66E926F31F2900AEFAE0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66E826F31F2900AEFAE0 /* Item.swift */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.release.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.release.xcconfig"; sourceTree = "<group>"; };
+		4200788E26F8B43F007AE2DF /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		4200789426F8EB4F007AE2DF /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
+		4200789526F8EB4F007AE2DF /* TextFieldAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldAlert.xib; sourceTree = "<group>"; };
 		422F66C426F2020200AEFAE0 /* pock_headline_news.pock */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pock_headline_news.pock; sourceTree = BUILT_PRODUCTS_DIR; };
 		422F66C726F2020200AEFAE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		422F66CD26F2049400AEFAE0 /* pock_headline_news-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pock_headline_news-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -122,6 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				422F66FC26F6393D00AEFAE0 /* Preferences.swift */,
+				4200788E26F8B43F007AE2DF /* TextFieldTableViewCell.swift */,
+				4200789426F8EB4F007AE2DF /* TextFieldAlert.swift */,
+				4200789526F8EB4F007AE2DF /* TextFieldAlert.xib */,
 				422F66F726F618FE00AEFAE0 /* HeadlineNewsWidgetPreferencePane */,
 			);
 			path = Preferences;
@@ -205,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				422F66FB26F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.xib in Resources */,
+				4200789726F8EB4F007AE2DF /* TextFieldAlert.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,11 +287,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				422F66ED26F3A08D00AEFAE0 /* NSColor.swift in Sources */,
+				4200789626F8EB4F007AE2DF /* TextFieldAlert.swift in Sources */,
 				422F670426F73D9C00AEFAE0 /* NSViewController.swift in Sources */,
 				422F670126F6620700AEFAE0 /* HeadLineNewsView.swift in Sources */,
 				422F66EB26F31F6800AEFAE0 /* RSSParser.swift in Sources */,
 				422F66FD26F6393D00AEFAE0 /* Preferences.swift in Sources */,
 				422F66FA26F6191A00AEFAE0 /* HeadlineNewsWidgetPreferencePane.swift in Sources */,
+				4200788F26F8B43F007AE2DF /* TextFieldTableViewCell.swift in Sources */,
 				422F66E926F31F2900AEFAE0 /* Item.swift in Sources */,
 				422F66CF26F2049400AEFAE0 /* HeadLineNewsWidget.swift in Sources */,
 			);

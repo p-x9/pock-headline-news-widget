@@ -15,7 +15,7 @@ extension NSNotification.Name {
 }
 
 extension Defaults.Keys {
-    static let rssUrl = Defaults.Key<String>("rssUrl", default: "https://news.yahoo.co.jp/rss/topics/top-picks.xml")
+    static let rssURLs = Defaults.Key<[String]>("rssURLs", default: ["https://news.yahoo.co.jp/rss/topics/top-picks.xml"])
     static let textSpeed = Defaults.Key<Float>("textSpeed", default: 1)
     static let textColor = Defaults.Key<Int>("textColor", default: 0xFFFFFFFF)
     static let fontName = Defaults.Key<String>("fontName", default: "HelveticaNeue")

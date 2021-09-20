@@ -10,16 +10,10 @@ import Foundation
 
 class RSSParser {
 
-    var url: URL
-    var items: [Item]
+    init() {}
 
-    init(url: URL) {
-        self.url = url
-        self.items = []
-    }
-
-    func parse(completion: @escaping (([Item], Error?) -> Void)) {
-        self.items = []
+    func parse(url: URL, completion: @escaping (([Item], Error?) -> Void)) {
+        var items: [Item] = []
         let request = NSMutableURLRequest(url: url)
         request.timeoutInterval = 5
         request.httpMethod = "GET"
@@ -29,15 +23,15 @@ class RSSParser {
                let data = data,
                let result = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 print(result)
-                self.parse(xml: result)
+                items = self.parse(xml: result)
             }
-            completion(self.items, error)
+            completion(items, error)
         }
         task.resume()
     }
 
-    func parse() {
-        self.items = []
+    func parse(url: URL) -> [Item] {
+        var items: [Item] = []
         let request = NSMutableURLRequest(url: url)
         request.timeoutInterval = 5
         request.httpMethod = "GET"
@@ -48,20 +42,25 @@ class RSSParser {
                let data = data,
                let result = String(data: data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 print(result)
-                self.parse(xml: result)
+                items = self.parse(xml: result)
             }
             semaphore.signal()
         }
         task.resume()
 
         semaphore.wait()
+        return items
     }
 
-    func reset() {
-        self.items = []
+    func parse(urls: [URL]) -> [Item] {
+        var items: [Item] = []
+        urls.forEach {
+            items += self.parse(url: $0)
+        }
+        return items.sorted { $0.getPubDate() ?? Date()  < $1.getPubDate() ?? Date() }
     }
 
-    private func parse(xml: String) {
+    private func parse(xml: String) -> [Item] {
         if let doc = try? XMLDocument(xmlString: xml, options: .documentTidyXML),
            let root = doc.rootElement() {
             var items = [XMLNode]()
@@ -72,23 +71,22 @@ class RSSParser {
                 print(error)
             }
 
-            items.forEach {body in
-                self.addItem(body: body)
-            }
+            return items.compactMap { self.convertToItem(body: $0) }
         }
+        return []
     }
 
-    private func addItem(body: XMLNode) {
+    private func convertToItem(body: XMLNode) -> Item? {
         do {
             let title = try body.nodes(forXPath: "title").first?.stringValue ?? ""
             let link = try body.nodes(forXPath: "link").first?.stringValue ?? ""
             let pubDate = try body.nodes(forXPath: "pubDate").first?.stringValue ?? ""
             let description = try body.nodes(forXPath: "description").first?.stringValue ?? ""
 
-            self.items.append(Item(title: title, pubDate: pubDate, link: link, description: description))
+            return Item(title: title, pubDate: pubDate, link: link, description: description)
         } catch {
             print(error)
         }
-
+        return nil
     }
 }
