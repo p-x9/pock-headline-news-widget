@@ -103,10 +103,12 @@ class HeadLineNewsWidget: NSObject, PKWidget {
 
     @objc
     func updateRssUrl() {
+        self.headLineNewsView.stopAnimating()
+        self.items = self.rssParser.parse(urls: self.rssURLs)
         if self.isRunning {
-            self.headLineNewsView.stopAnimating()
-            self.items = self.rssParser.parse(urls: self.rssURLs)
-            self.headLineNewsView.startAnimating(with: items)
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) {_ in
+                self.headLineNewsView.startAnimating(with: self.items)
+            }
         }
     }
 
