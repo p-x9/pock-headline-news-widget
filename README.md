@@ -14,7 +14,7 @@ You can display the articles fetched by rss.
 In the demo video, the following rss url is used.
 https://news.yahoo.co.jp/rss/topics/top-picks.xml
 
-![Demo](resources/demo.gif)
+![Demo](https://user-images.githubusercontent.com/50244599/134106222-3d05f442-9d75-43ce-b417-01b529ac330c.gif)
 
 
 ## Usage
@@ -26,6 +26,7 @@ You can customize following properties
 - text animating speed
 - text font
 - text font color
+- background color
 
 
 ## Installation
