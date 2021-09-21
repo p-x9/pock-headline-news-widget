@@ -50,6 +50,8 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
 
         self.rssTableView.delegate = self
         self.rssTableView.dataSource = self
+        self.rssTableView.target = self
+        self.rssTableView.doubleAction = #selector(handleTableViewDoubleClicked)
     }
 
     override func viewDidDisappear() {
@@ -178,12 +180,14 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     }
 
     @objc
-    func handleAlertOKButtonTapped(alert: NSAlert, url: String) {
-        if self.checkFormat(of: url, withAlert: true) {
-            self.rssURLs.append(url)
-            self.rssTableView.reloadData()
-            self.view.window?.endSheet(alert.window)
+    func handleTableViewDoubleClicked() {
+        self.rssTableView.deselectRow(self.rssTableView.clickedRow)
+        guard let textFieldCell = self.rssTableView.view(atColumn: self.rssTableView.clickedColumn,
+                                                         row: self.rssTableView.clickedRow,
+                                                         makeIfNecessary: false) as? TextFieldTableViewCell else {
+            return
         }
+        textFieldCell.isEditable = true
     }
 }
 
@@ -207,12 +211,20 @@ extension HeadlineNewsWidgetPreferencePane: NSTableViewDelegate, NSTableViewData
         let cell = tableView.makeView(withIdentifier: identifier, owner: self) as! TextFieldTableViewCell
         cell.text = self.rssURLs[row]
         cell.valueChangedHandler = {[weak self] text in
-            guard let self = self,
-                  self.checkFormat(of: text, withAlert: true) else {
+            guard let self = self else {
                 return
             }
-            self.rssURLs[row] = text
+            if self.checkFormat(of: text, withAlert: true) {
+                self.rssURLs[row] = text
+            } else {
+                cell.text = self.rssURLs[row]
+            }
+
+        }
+        cell.textDidEndEditingHandler = {_ in
+            cell.isEditable = false
         }
         return cell
     }
+
 }

@@ -24,6 +24,7 @@ class TextFieldTableViewCell: NSTableCellView {
     }
 
     var valueChangedHandler: ((String) -> Void)?
+    var textDidEndEditingHandler: ((String) -> Void)?
 
     private let valueTextField: NSTextField = {
         let textField = NSTextField()
@@ -45,6 +46,8 @@ class TextFieldTableViewCell: NSTableCellView {
         self.setEditable(false)
         self.valueTextField.target = self
         self.valueTextField.action = #selector(textChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing(_:)),
+                                               name: NSTextField.textDidEndEditingNotification, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -54,6 +57,8 @@ class TextFieldTableViewCell: NSTableCellView {
         self.setEditable(false)
         self.valueTextField.target = self
         self.valueTextField.action = #selector(textChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing(_:)),
+                                               name: NSTextField.textDidEndEditingNotification, object: nil)
     }
 
     private func setup() {
@@ -71,6 +76,12 @@ class TextFieldTableViewCell: NSTableCellView {
         self.valueTextField.isSelectable = mode
         self.valueTextField.drawsBackground = mode
         self.valueTextField.isBezeled = mode
+        self.layer?.backgroundColor = mode ? NSColor.textBackgroundColor.cgColor : .clear
+
+        if mode {
+            self.valueTextField.becomeFirstResponder()
+        }
+        self.needsLayout = true
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -82,6 +93,23 @@ class TextFieldTableViewCell: NSTableCellView {
     @objc
     func textChanged() {
         self.valueChangedHandler?(self.valueTextField.stringValue)
+    }
+
+    @objc
+    func textDidEndEditing(_ notification: Notification) {
+        guard let textField = notification.object as? NSTextField else {
+            return
+        }
+        switch textField {
+        case self.valueTextField:
+        self.textDidEndEditingHandler?(self.valueTextField.stringValue)
+        default:
+            return
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSTextField.textDidEndEditingNotification, object: nil)
     }
 
 }
