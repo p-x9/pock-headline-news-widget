@@ -3,10 +3,11 @@
 
 target 'pock_headline_news' do
   # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+  #use_frameworks!
 
   # Pods for pock_headline_news
   pod 'PockKit'
   pod 'Defaults'
+  pod 'SnapKit'
 
 end

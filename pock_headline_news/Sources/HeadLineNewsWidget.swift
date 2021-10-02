@@ -12,7 +12,7 @@ import SnapKit
 import Defaults
 
 class HeadLineNewsWidget: NSObject, PKWidget {
-    var identifier: NSTouchBarItem.Identifier = NSTouchBarItem.Identifier(rawValue: "\(HeadLineNewsWidget.self)")
+    static var identifier: String = "\(HeadLineNewsWidget.self)"
 
     var customizationLabel: String = "HeadLineNews"
 

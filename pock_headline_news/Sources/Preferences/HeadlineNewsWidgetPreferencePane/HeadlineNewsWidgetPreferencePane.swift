@@ -189,6 +189,10 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
         }
         textFieldCell.isEditable = true
     }
+
+    func reset() {
+
+    }
 }
 
 extension HeadlineNewsWidgetPreferencePane: NSFontChanging {

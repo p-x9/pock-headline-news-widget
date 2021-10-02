@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		064160C7555DC443541D3C5F /* libPods-pock_headline_news.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DE1A92207414EC9F67EF95 /* libPods-pock_headline_news.a */; };
 		4200788F26F8B43F007AE2DF /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200788E26F8B43F007AE2DF /* TextFieldTableViewCell.swift */; };
 		4200789626F8EB4F007AE2DF /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200789426F8EB4F007AE2DF /* TextFieldAlert.swift */; };
 		4200789726F8EB4F007AE2DF /* TextFieldAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4200789526F8EB4F007AE2DF /* TextFieldAlert.xib */; };
 		422F66CF26F2049400AEFAE0 /* HeadLineNewsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66CE26F2049400AEFAE0 /* HeadLineNewsWidget.swift */; };
-		422F66E126F31DAA00AEFAE0 /* Pods_pock_headline_news.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */; };
 		422F66E926F31F2900AEFAE0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66E826F31F2900AEFAE0 /* Item.swift */; };
 		422F66EB26F31F6800AEFAE0 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66EA26F31F6800AEFAE0 /* RSSParser.swift */; };
 		422F66ED26F3A08D00AEFAE0 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66EC26F3A08D00AEFAE0 /* NSColor.swift */; };
@@ -23,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16DE1A92207414EC9F67EF95 /* libPods-pock_headline_news.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pock_headline_news.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.release.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.release.xcconfig"; sourceTree = "<group>"; };
 		4200788E26F8B43F007AE2DF /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		4200789426F8EB4F007AE2DF /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
@@ -40,7 +41,6 @@
 		422F670026F6620700AEFAE0 /* HeadLineNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadLineNewsView.swift; sourceTree = "<group>"; };
 		422F670226F6F4D400AEFAE0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		422F670326F73D9C00AEFAE0 /* NSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSViewController.swift; sourceTree = "<group>"; };
-		491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pock_headline_news.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.debug.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				422F66E126F31DAA00AEFAE0 /* Pods_pock_headline_news.framework in Frameworks */,
+				064160C7555DC443541D3C5F /* libPods-pock_headline_news.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +148,7 @@
 		6D840EE9C41293C71BFA9DAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				491F2E462F4FE6364E918006 /* Pods_pock_headline_news.framework */,
+				16DE1A92207414EC9F67EF95 /* libPods-pock_headline_news.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -30,7 +30,7 @@ class TextFieldTableViewCell: NSTableCellView {
         let textField = NSTextField()
 
         textField.textColor = .labelColor
-        textField.alignment = .natural
+        textField.alignment = .left
         textField.lineBreakMode = .byClipping
         textField.cell?.isScrollable = true
         textField.cell?.wraps = false
