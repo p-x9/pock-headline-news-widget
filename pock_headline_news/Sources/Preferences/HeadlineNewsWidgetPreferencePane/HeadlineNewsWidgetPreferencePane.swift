@@ -7,12 +7,11 @@
 //
 
 import PockKit
-import Defaults
 
 class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     static var nibName: NSNib.Name = "\(HeadlineNewsWidgetPreferencePane.self)"
 
-    var rssURLs: [String] = Defaults[.rssURLs]
+    var rssURLs: [String] = Preferences[.rssURLs]
 
     @IBOutlet private var rssTableView: NSTableView!
 
@@ -20,7 +19,7 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
         didSet {
             self.speedSlider.minValue = 0.0
             self.speedSlider.maxValue = 2.0
-            self.speedSlider.floatValue = Defaults[.textSpeed]
+            self.speedSlider.floatValue = Preferences[.textSpeed]
         }
     }
     @IBOutlet private var speedTextField: NSTextField! {
@@ -30,18 +29,18 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     }
     @IBOutlet private var textColorWell: NSColorWell! {
         didSet {
-            self.textColorWell.color = NSColor(rgba: Defaults[.textColor])
+            self.textColorWell.color = NSColor(rgba: Preferences[.textColor])
         }
     }
     @IBOutlet private var fontTextField: NSTextField! {
         didSet {
-            self.fontTextField.stringValue = "\(Defaults[.fontName]) \(Int(Defaults[.fontSize]))"
+            self.fontTextField.stringValue = "\(Preferences[.fontName]) \(Int(Preferences[.fontSize]))"
         }
     }
     @IBOutlet private var fontSelectButton: NSButton!
     @IBOutlet private var backgroundColorWell: NSColorWell! {
         didSet {
-            self.backgroundColorWell.color = NSColor(rgba: Defaults[.backgroundColor])
+            self.backgroundColorWell.color = NSColor(rgba: Preferences[.backgroundColor])
         }
     }
 
@@ -81,9 +80,9 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
         }
         switch colorWell {
         case self.textColorWell:
-            Defaults[.textColor] = colorWell.color.rgbaInt
+            Preferences[.textColor] = colorWell.color.rgbaInt
         case self.backgroundColorWell:
-            Defaults[.backgroundColor] = colorWell.color.rgbaInt
+            Preferences[.backgroundColor] = colorWell.color.rgbaInt
         default:
             break
         }
@@ -157,25 +156,25 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     func removeRssUrl(index: Int) {
         if self.rssURLs.indices.contains(index) {
             self.rssURLs.remove(at: index)
-            Defaults[.rssURLs] = self.rssURLs
+            Preferences[.rssURLs] = self.rssURLs
             self.rssTableView.removeRows(at: [index], withAnimation: .effectFade)
             NSWorkspace.shared.notificationCenter.post(name: .shouldChangeRssUrl, object: nil)
         }
     }
 
     func update(speed: Float) {
-        Defaults[.textSpeed] = speed
+        Preferences[.textSpeed] = speed
         NSWorkspace.shared.notificationCenter.post(name: .shouldReloadUISettings, object: nil)
     }
 
     func update(font: NSFont) {
-        Defaults[.fontSize] = font.pointSize
-        Defaults[.fontName] = font.fontName
+        Preferences[.fontSize] = font.pointSize
+        Preferences[.fontName] = font.fontName
         NSWorkspace.shared.notificationCenter.post(name: .shouldReloadUISettings, object: nil)
     }
 
     func update(rssURLs: [String]) {
-        Defaults[.rssURLs] = self.rssURLs
+        Preferences[.rssURLs] = self.rssURLs
         NSWorkspace.shared.notificationCenter.post(name: .shouldChangeRssUrl, object: nil)
     }
 
@@ -191,7 +190,9 @@ class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
     }
 
     func reset() {
-
+        Preferences.reset()
+        NSWorkspace.shared.notificationCenter.post(name: .shouldChangeRssUrl, object: nil)
+        NSWorkspace.shared.notificationCenter.post(name: .shouldReloadUISettings, object: nil)
     }
 }
 

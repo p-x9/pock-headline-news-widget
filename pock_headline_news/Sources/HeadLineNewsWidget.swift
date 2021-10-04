@@ -9,7 +9,6 @@
 import PockKit
 import Cocoa
 import SnapKit
-import Defaults
 
 class HeadLineNewsWidget: NSObject, PKWidget {
     static var identifier: String = "\(HeadLineNewsWidget.self)"
@@ -22,18 +21,18 @@ class HeadLineNewsWidget: NSObject, PKWidget {
     var rssParser: RSSParser
     var items: [Item] = []
 
-    var speed: Float { Defaults[.textSpeed] }
-    var textColor: NSColor { NSColor(rgba: Defaults[.textColor]) }
+    var speed: Float { Preferences[.textSpeed] }
+    var textColor: NSColor { NSColor(rgba: Preferences[.textColor]) }
     var font: NSFont {
-        NSFont(name: Defaults[.fontName], size: Defaults[.fontSize]) ?? .systemFont(ofSize: 20)
+        NSFont(name: Preferences[.fontName], size: Preferences[.fontSize]) ?? .systemFont(ofSize: 20)
     }
-    var backgroundColor: NSColor { NSColor(rgba: Defaults[.backgroundColor]) }
+    var backgroundColor: NSColor { NSColor(rgba: Preferences[.backgroundColor]) }
     var isRunning: Bool {
         self.headLineNewsView.isRunning
     }
 
     var rssURLs: [URL] {
-        Defaults[.rssURLs].compactMap { URL(string: $0) }
+        Preferences[.rssURLs].compactMap { URL(string: $0) }
     }
 
     override required init() {
