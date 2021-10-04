@@ -30,7 +30,7 @@ You can customize following properties
 
 
 ## Installation
-1. build this project.
-2. Relaunch Pock.app.
+1. download '.pock.zip' file from [here](https://github.com/p-x9/pock-headline-news-widget/releases) and unzip.
+2. double click it and reload Pock.
 3. open 'Customize Touch Bar' panel and add this widget.
 4. open WidgetManager panel and set your rss url.
