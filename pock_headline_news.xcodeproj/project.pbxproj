@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		064160C7555DC443541D3C5F /* libPods-pock_headline_news.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DE1A92207414EC9F67EF95 /* libPods-pock_headline_news.a */; };
 		4200788F26F8B43F007AE2DF /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200788E26F8B43F007AE2DF /* TextFieldTableViewCell.swift */; };
 		4200789626F8EB4F007AE2DF /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200789426F8EB4F007AE2DF /* TextFieldAlert.swift */; };
 		4200789726F8EB4F007AE2DF /* TextFieldAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4200789526F8EB4F007AE2DF /* TextFieldAlert.xib */; };
@@ -20,11 +19,12 @@
 		422F66FD26F6393D00AEFAE0 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F66FC26F6393D00AEFAE0 /* Preferences.swift */; };
 		422F670126F6620700AEFAE0 /* HeadLineNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F670026F6620700AEFAE0 /* HeadLineNewsView.swift */; };
 		422F670426F73D9C00AEFAE0 /* NSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422F670326F73D9C00AEFAE0 /* NSViewController.swift */; };
+		4246EF612712EB0F003541E9 /* PockKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4246EF602712EB0F003541E9 /* PockKit */; };
+		4246EF642712EB40003541E9 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 4246EF632712EB40003541E9 /* Defaults */; };
+		4246EF672712EB70003541E9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4246EF662712EB70003541E9 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		16DE1A92207414EC9F67EF95 /* libPods-pock_headline_news.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pock_headline_news.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.release.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.release.xcconfig"; sourceTree = "<group>"; };
 		4200788E26F8B43F007AE2DF /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		4200789426F8EB4F007AE2DF /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
 		4200789526F8EB4F007AE2DF /* TextFieldAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldAlert.xib; sourceTree = "<group>"; };
@@ -41,7 +41,6 @@
 		422F670026F6620700AEFAE0 /* HeadLineNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadLineNewsView.swift; sourceTree = "<group>"; };
 		422F670226F6F4D400AEFAE0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		422F670326F73D9C00AEFAE0 /* NSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSViewController.swift; sourceTree = "<group>"; };
-		76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pock_headline_news.debug.xcconfig"; path = "Target Support Files/Pods-pock_headline_news/Pods-pock_headline_news.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,30 +48,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				064160C7555DC443541D3C5F /* libPods-pock_headline_news.a in Frameworks */,
+				4246EF672712EB70003541E9 /* SnapKit in Frameworks */,
+				4246EF642712EB40003541E9 /* Defaults in Frameworks */,
+				4246EF612712EB0F003541E9 /* PockKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C8CC030FDFC5B07BF87C570 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */,
-				1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		422F66BB26F2020200AEFAE0 = {
 			isa = PBXGroup;
 			children = (
 				422F670226F6F4D400AEFAE0 /* README.md */,
 				422F66C626F2020200AEFAE0 /* pock_headline_news */,
 				422F66C526F2020200AEFAE0 /* Products */,
-				0C8CC030FDFC5B07BF87C570 /* Pods */,
-				6D840EE9C41293C71BFA9DAE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,14 +135,6 @@
 			path = HeadlineNewsWidgetPreferencePane;
 			sourceTree = "<group>";
 		};
-		6D840EE9C41293C71BFA9DAE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				16DE1A92207414EC9F67EF95 /* libPods-pock_headline_news.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,7 +142,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 422F66CA26F2020200AEFAE0 /* Build configuration list for PBXNativeTarget "pock_headline_news" */;
 			buildPhases = (
-				11A13C717E85783C21369828 /* [CP] Check Pods Manifest.lock */,
 				422F66C026F2020200AEFAE0 /* Sources */,
 				422F66C126F2020200AEFAE0 /* Frameworks */,
 				422F66C226F2020200AEFAE0 /* Resources */,
@@ -172,6 +153,11 @@
 			dependencies = (
 			);
 			name = pock_headline_news;
+			packageProductDependencies = (
+				4246EF602712EB0F003541E9 /* PockKit */,
+				4246EF632712EB40003541E9 /* Defaults */,
+				4246EF662712EB70003541E9 /* SnapKit */,
+			);
 			productName = pock_headline_news;
 			productReference = 422F66C426F2020200AEFAE0 /* pock_headline_news.pock */;
 			productType = "com.apple.product-type.bundle";
@@ -199,6 +185,11 @@
 				Base,
 			);
 			mainGroup = 422F66BB26F2020200AEFAE0;
+			packageReferences = (
+				4246EF5F2712EB0F003541E9 /* XCRemoteSwiftPackageReference "pockkit" */,
+				4246EF622712EB40003541E9 /* XCRemoteSwiftPackageReference "Defaults" */,
+				4246EF652712EB6F003541E9 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 422F66C526F2020200AEFAE0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -221,28 +212,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11A13C717E85783C21369828 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-pock_headline_news-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		422F66D226F240E300AEFAE0 /* Debug Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -415,7 +384,6 @@
 		};
 		422F66CB26F2020200AEFAE0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 76F407550A6E65EEB6AE811E /* Pods-pock_headline_news.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -440,7 +408,6 @@
 		};
 		422F66CC26F2020200AEFAE0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B50FA367070723766DF772C /* Pods-pock_headline_news.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -484,6 +451,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4246EF5F2712EB0F003541E9 /* XCRemoteSwiftPackageReference "pockkit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pock/pockkit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.1;
+			};
+		};
+		4246EF622712EB40003541E9 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		4246EF652712EB6F003541E9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4246EF602712EB0F003541E9 /* PockKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4246EF5F2712EB0F003541E9 /* XCRemoteSwiftPackageReference "pockkit" */;
+			productName = PockKit;
+		};
+		4246EF632712EB40003541E9 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4246EF622712EB40003541E9 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		4246EF662712EB70003541E9 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4246EF652712EB6F003541E9 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 422F66BC26F2020200AEFAE0 /* Project object */;
 }

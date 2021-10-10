@@ -6,6 +6,7 @@
 //  
 //
 
+import AppKit
 import PockKit
 
 class HeadlineNewsWidgetPreferencePane: NSViewController, PKWidgetPreference {
