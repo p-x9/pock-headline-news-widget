@@ -402,7 +402,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.p-x9.pock-headline-news";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "pock_headline_news/pock_headline_news-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -426,7 +426,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.p-x9.pock-headline-news";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "pock_headline_news/pock_headline_news-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = pock;
